@@ -1,5 +1,6 @@
 import random
-
+right_answer = "Great job the answer is right"
+wrong_answer = "nice try but the a answer was "
 
 def Percentages ():
   while True:
@@ -11,10 +12,10 @@ def Percentages ():
       print(f'testing purpose {answer}')
       user_input = float(input(f'what is {Percentages}% of {percentages_of} '))
       if user_input == answer:
-        print("🎉 Great job! You got the answer right!")
+        print("Great job! You got the answer right!")
         break
       elif user_input > 0 and user_input < 5001:
-        print(f'f"😅 Nice try! ❌ The correct answer was {answer}! 🎯✨')
+        print(f"{wrong_answer} {answer}")
         break
     except:
       print("integer and float only")
@@ -41,10 +42,10 @@ def Power ():
       print(r_answer)
       user_answer = input(f"Calculate: {rand_no}^{rand_power} ")
       if r_answer == user_answer:
-        print("🎉 Great job! You got the answer right!")
+        print("Great job! You got the answer right!")
         break
       elif user_answer != r_answer:
-        print(f'f"😅 Nice try! ❌ The correct answer was {r_answer}! ')
+        print(f'{wrong_answer} {r_answer}! ')
         break
     except:
       print("invalid")

@@ -8,14 +8,13 @@ def Percentages ():
       Percentages = random.randint(1, 99)
       percentages_of = random.randint(300, 5000)
       print('make sure to round it up to 2.d.p')
-      answer = round(Percentages / 100 * percentages_of)
-      print(f'testing purpose {answer}')
+      answar = round(Percentages / 100 * percentages_of)
       user_input = float(input(f'what is {Percentages}% of {percentages_of} '))
-      if user_input == answer:
-        print("Great job! You got the answer right!")
+      if user_input == answar:
+        print(right_answer)
         break
-      elif user_input > 0 and user_input < 5001:
-        print(f"{wrong_answer} {answer}")
+      elif 0 < user_input < 5001:
+        print(f'{wrong_answer}{answar}!')
         break
     except:
       print("integer and float only")
@@ -38,14 +37,17 @@ def Power ():
       # get random power and the number
       rand_power = random.choice(power)
       rand_no = random.choice(Positive_no)
-      r_answer =pow(rand_no,rand_no)
-      print(r_answer)
-      user_answer = input(f"Calculate: {rand_no}^{rand_power} ")
-      if r_answer == user_answer:
-        print("Great job! You got the answer right!")
+      r_answer = pow(rand_no,rand_power)
+      try:
+        user_answer = int(input(f"Calculate: {rand_no}^{rand_power} "))
+      except ValueError:
+        print("invalid")
+        continue
+      if user_answer == r_answer:
+        print(right_answer)
         break
-      elif user_answer != r_answer:
-        print(f'{wrong_answer} {r_answer}! ')
+      else:
+        print(f'{wrong_answer}{r_answer}!')
         break
     except:
       print("invalid")
@@ -100,7 +102,7 @@ while True:
     start_yes_no = input ('do you like to start the quiz? ').lower()
     # checking 
     if start_yes_no == 'yes':
-      print('starting quiz')
+      print("")
       break
     elif start_yes_no == 'no':
       print('Tell me whan your ready')
@@ -109,4 +111,14 @@ while True:
       print('Enter yes or no ')
   except:
     print('Enter yes or no ')
+
+
+
+
+
+
+
+
+
+
 

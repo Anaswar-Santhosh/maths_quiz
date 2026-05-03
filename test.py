@@ -1,318 +1,292 @@
-# random library to use random
 import random
-correct_answer_count = 0
-questions = []
-right_answer = []
-user_input = []
+score = 0
+#lists for history display
+question_list = [] 
+correct_answers = []
+user_answers = []
 #####################################################Instrucions##################################################################################
-# defining instructions
-def instructions():
-  #loop if thay type something other then yes or no
+def show_instructions():
   while True:
-    #asking for permission for instructions
-    instructions = input(f'would you like to see the instrucions(yes,no) ').lower().strip()
-    #checking if user input is yes
-    if instructions == 'yes':
-      #printing the Instrucions
-      print('========================= QUIZ INSTRUCTIONS ========================')
-      print(f'You will be asked a question at a time.')
-      print(f'Type your question and press enter.')
-      print(f'If you got the answer correct it will show a massage and a ✅ mark.')
-      print(f'If you answered it wrong, the right answer would be shown.') 
-      print(f'For divition - the answer showed be round it up to 2 decimal point.')
-      print(f'To skip a question press enter without typing anyting.')
-      print(f'You can choose the number of question from 15 to 30.')
-      print(f'enter 999 to do infinite mode.')
-      print(f'Type stop to quit infinite mode.')
-      print('At the end you can choose to see the full history.')
+    show_instructions = input(f'would you like to see the instrucions(yes,no) ').lower().strip()
+    if show_instructions == 'yes':  
+      print("""
+============================= QUIZ INSTRUCTIONS ============================
+You will be asked a question at a time.
+Type your question and press enter.
+If you got the answer correct it will show a massage and a ✅ mark.
+If you answered it wrong, it will tell you it is incorrect and a ❌ mark.
+For divition - the answer showed be round it up to 2 decimal point.
+To skip a question enter 'skip' and press enter without typing anything.
+You can choose the number of question from 15 to 30.
+enter 999 to do infinite mode.
+Type stop to quit infinite mode.
+At the end you can choose to see the full history.
+============================================================================
+            """)
+      break
+    elif show_instructions == 'no':
       print('====================================================================')
       break
-    #checking if user input is no
-    elif instructions == 'no':
-      print('====================================================================')
-      break
-    # if that type anything else, asking them again
     else:
       print('Enter yes or no ')
-#########################To skip a question press enter without typing anyting##################check the year of the user is in side the range. ########################################################     
-#defining a function called age_group
-def age_group():
-  #loop if thay type something other then the year range
+###########################################check the year of the user is in side the range. ########################################################     
+def year_level():
   while True:
-    #aking there year
-    year = input('what year are you ( 1 to 8 ) ').strip()
-    #years that qualify
-    years = ["1","2","3","4","5","6","7","8",]
-    #chacking if the user input is inside the age range 
-    if year in years:
-      print('====================================================================')
-      # returing it so we can use the year out side the def age_group
-      return year
-    # if that type something out side the range 
+    try:
+      year_level = int(input('What year are you ( 1 to 8 ) '))
+
+      if 1 <= year_level <= 8:
+        print('====================================================================')
+        return year_level
+      elif year_level > 8:
+        print('Sorry it only for year 1 to 8')
+        print('====================================================================')
+      else:
+        print('Sorry, you are too young for this quiz')
+        print('====================================================================')
+    except ValueError:
+      print()
+      print("""
+====================================================================     
+Please enter a number
+====================================================================
+            """)
+########################################################genarate the question print it and cheack if it right##################################################################  
+def get_range_for_year_level(year_level):
+  if year_level == 1:
+    min_range = 1
+    max_range = 10
+    return min_range, max_range
+  elif year_level == 2:
+    min_range = 1
+    max_range = 20
+    return min_range, max_range
+  elif year_level == 3:
+    min_range = 1
+    max_range = 50
+    return min_range, max_range
+  elif year_level == 4:
+    min_range = 1
+    max_range = 100
+    return min_range, max_range
+  elif year_level == 5:
+    min_range = 1
+    max_range = 100
+    return min_range, max_range
+  elif year_level == 6:
+    min_range = 1
+    max_range = 100
+    return min_range, max_range
+  elif year_level == 7:
+    min_range = 1
+    max_range = 1000
+    return min_range, max_range
+  elif year_level == 8:
+    min_range = 1
+    max_range = 10000
+    return min_range, max_range
+def generate_question(min_range, max_range):
+  while True:
+    first_number = random.randint(min_range, max_range)
+    second_number = random.randint(min_range, max_range)
+    operation_choices = ["+","-"]
+    selected_operation = random.choice(operation_choices)  
+    if selected_operation == "-" and first_number < second_number:
+      continue
     else:
-      print('====================================================================')
-      print('Enter a year between 1 to 8 ')
-      
-###################################################################################################################################################  
-#defining a function called questiom_genrater
-def questiom_genrater(year):
-  try:
-    #check if year is 1 or 2 
-    if year == '1' or year == '2':
-      #genrate random numbers 
-      num1 = random.randint(1,9)
-      num2 = random.randint(10,19)
-      #list the symbol
-      question_type = ["+","-"]
-      #choice a random symbol from the question_type list
-      choice  = random.choice(question_type)
-      
-    #check if year is 3 or 4
-    elif year == "3" or year == '4':
-      #genrate random numbers 
-      num1 = random.randint(1,20)
-      num2 = random.randint(1,50)
-      num3 = random.randint(1,10)
-      num4 = random.randint(1,10)
-      #list the symbol
-      question_type = ["+","-","*","/"]
-      #choice a random symbol from the question_type list
-      choice  = random.choice(question_type)
-                              
-    #check if year is 5 or 6
-    elif year == "5" or year == '6':
-      #genrate random numbers 
-      num1 = random.randint(50,250)
-      num2 = random.randint(10,100)
-      num3 = random.randint(1,12)
-      num4 = random.randint(1,12)
-      #list the symbol
-      question_type = ["+","-","*","/"]
-      #choice a random symbol from the question_type list
-      choice  = random.choice(question_type)
-                              
-                              
-    #check if year is 7 or 8
-    elif year == '7' or year == '8':
-      #genrate random numbers 
-      num1 = random.randint(50,500)
-      num2 = random.randint(30,100)
-      num3 = random.randint(1,20)
-      num4 = random.randint(2,20)
-      #list the symbol
-      question_type = ["+","-","*","/"]
-      #choice a random symbol from the question_type list
-      choice  = random.choice(question_type)
-      
-      #checking if the choice = +
-    if choice == "+":
-      #finding the answer 
-      correct_answer = num2 + num1 
-      questions.append(f"What is {num2} {choice} {num1}?")
-    #checking if the choice = -
-    elif choice == "-":
-      #finding the answer 
-      correct_answer = num2 - num1
-      questions.append(f"What is {num2} {choice} {num1}?")
-    #checking if the choice = *
-    elif choice == "*":
-      #finding the answer 
-      correct_answer = num3 * num4
-      questions.append(f"What is {num3} {choice} {num4}?")
-    #checking if the choice = /
-    elif choice == "/":
-      # round the answer to 2 dp and find the answer 
-      correct_answer =round( num3 / num4 , 2)
-      # tall the user to round the answer to 2 dp if needed
-      print ('Make sure to round it up to 2 decimal point')
-      questions.append(f"What is {num3} {choice} {num4}?")#@@@@@@@@@@@@
-      
+      break
+
+
+  if selected_operation == "+":
+    expected_answer = first_number + second_number
+
+  elif selected_operation == "-":
+    expected_answer = first_number - second_number
+
+  question_list.append(f"What is {first_number} {selected_operation} {second_number}?")
+  correct_answers.append(expected_answer)
+  return expected_answer, selected_operation, first_number, second_number
+
+def get_user_answer(question_data):
+    skip_command = "skip"
+    #printing question
+    student_answer = input(f'What is {question_data[2]} {question_data[1]} {question_data[3]}? ').lower().strip()
+    #answer checking - if user want to skiping and stop                 
+    if student_answer == skip_command:
+      student_answer = "skipped"     
+      return student_answer 
     
-    #printing the question 
-    if choice in ["+","-"]:
-      user_answer = input(f'what is {num2} {choice} {num1} ').lower().strip()
-    else:
-      user_answer = input(f'what is {num3} {choice} {num4} ').lower().strip()
-    right_answer.append(correct_answer)#@@@@@@@@@@@@
-  
-  # when user enter nothing it privent it from printing "'Invalid! please enter a number"
-    if user_answer == "":
-      user_answer = "Not answered"
-      print(f'The correct answer is {correct_answer}')
-      user_input.append(user_answer)#@@@@@@@@@@@@@
-      return 
-    elif user_answer == "stop":
+    elif student_answer == "stop":
       return "stop"
-    
     try:
-      if "." in user_answer:
-        user_answer = float(user_answer)
-      else:
-        user_answer = int(user_answer)
-      
+      student_answer = int(student_answer)
+      return student_answer
     except ValueError:
       print('Invalid! please enter a number')
-      return 
-    
-    #cheaking user input is correct or incorrect and talling them
-    if user_answer == correct_answer:
-      print('✅ Correct answer')
-      global correct_answer_count
-      correct_answer_count = correct_answer_count + 1
-      user_input.append(user_answer)
-      return 
-    else:
-      print('❌ Incorrect answer')
-      print(f'The correct answer is {correct_answer}')
-      user_input.append(user_answer)
-  #privent them from tryping invalid number
-  except ValueError:
-    print('Invalid!')
-  # returing year so year can be used out side this def 
-   
-  
-     
-###################################################################################################################################################
-# defining a function called question_number and used the return year
-def question_number(year):
-  variable = 0
-  while True:
-    print('Pick a number of questions from 15 to 30')
-    print('For infinite mode enter 999')
-    try:
-      num_questions = int(input('How many questions would you like to be in this quiz '))
-    except ValueError:
-      print('Pick a number of questions from 15 to 30')
-      print('For infinite mode enter 999')
-    if num_questions == 999:
-      print("==============================infinite mode=========================")
-      variable = 0
       while True:
-        variable = variable + 1
-        print(f'======question {variable}======')
-        collect = questiom_genrater(year)
-        if collect == "stop" :
+        try:
+          student_answer = input(f"{question_list[-1]} ")
+          if student_answer == skip_command:
+            student_answer = "skipped"
+            user_answers.append(student_answer)
+            return student_answer    
+          elif student_answer == "stop":
+            return "stop"
+          int(student_answer)
           break
-    
-        
-      print("==========================end of infinite mode======================")
-      histery_print()
-      return 
-        
-    elif num_questions > 14 and num_questions < 30:
-      print('====================================================================')
-      for variable in range(num_questions):
-        print(f'======question {variable + 1}======')
-        questiom_genrater(year)
-      print('====================================================================')
-      print(f'You got {correct_answer_count} out of {num_questions}')
-      histery_print()
-      break
 
-    else:
-      print('Enter a number between 15 and 30')
-#############################print("=========infinite mode==================================================================")################################################################################################
-def infinite_mode(year):
-  correct_answer_count = 0
-  variable = -1
-  correct_answer_count =0
-  while True:#loop
-    variable = variable + 1
-    if year == '1' or year == '2':
-      num1 = random.randint(1,10)
-      num2 = random.randint(1,10)
-      question_type = ["+","-"]
-      choice  = random.choice(question_type)
-    elif year == "3" or year == '4':
-      num1 = random.randint(1,20)
-      num2 = random.randint(1,50)
-      num3 = random.randint(1,10)
-      num4 = random.randint(1,10)
-      question_type = ["+","-","*","/"]
-      choice  = random.choice(question_type)
-    elif year == '5' or year == '6':
-      num1 = random.randint(50,250)
-      num2 = random.randint(10,100)
-      num3 = random.randint(1,12)
-      num4 = random.randint(1,12)
-      question_type = ["+","-","*","/"]
-      choice  = random.choice(question_type)
-    elif year == '7' or year == '8':
-      num1 = random.randint(50,500)
-      num2 = random.randint(30,100)
-      num3 = random.randint(1,20)
-      num4 = random.randint(2,20)
-      question_type = ["+","-","*","/"]
-      choice  = random.choice(question_type)
+        except ValueError:
+          print('Invalid! please enter a number')
+      return student_answer
 
-    if choice == "+":
-      correct_answer = num2 + num1 
-      questions.append(f"What is {num2} {choice} {num1}?")
-    elif choice == "-":
-      correct_answer = num2 - num1
-      questions.append(f"What is {num2} {choice} {num1}?")
-    elif choice == "*":
-      correct_answer = num3 * num4
-      questions.append(f"What is {num3} {choice} {num4}?")
-    elif choice == "/":
-      correct_answer =round( num3 / num4 , 2)
-      print ('Make sure to round it up to 2 decimal point')
-      questions.append(f"What is {num3} {choice} {num4}?")
+def check_answer(expected_answer,student_answer):
+    if student_answer == "skipped":
+      user_answers.append(student_answer)
+      print('You have skipped this question')
+      return
+    if student_answer == "stop":
+      return
 
-    right_answer.append(correct_answer)
-    
-    if choice in ["+","-"]:
-      print(f'======question {variable + 1}======')
-      user_answer = input(f"What is {num2} {choice} {num1}? ").strip()
-    else:
-      print(f'======question {variable + 1}======')
-      user_answer = input(f"What is {num3} {choice} {num4}? ").strip()
-    if user_answer == "":
-      break
-    try:
-      if "." in user_answer:
-        user_answer = float(user_answer)
-      else:
-        user_answer = int(user_answer)
-    except ValueError:
-      print('Invalid! please enter a number')
-      return 
-      
-    
-    #cheaking user input is correct or incorrect and talling them
-    if user_answer == correct_answer:
+    #answer checking
+    if student_answer == expected_answer:
       print('✅ Correct answer')
-      correct_answer_count = correct_answer_count + 1
-      user_input.append(user_answer)
+      global score
+      score = score + 1
+      user_answers.append(student_answer)  
+      return 
     else:
       print('❌ Incorrect answer')
-      print(f'The correct answer is {correct_answer}')
-      user_input.append(user_answer)
-  #privent them from tryping invalid number
- 
+      user_answers.append(student_answer)
+
+########################################################print the question deppenthing on the number of question need#######################################################################
+def question_number(min_range, max_range): 
+  min_questions = 15
+  max_questions = 100
+  infinite_code = 999
+  questions_asked = 0
+
+  while True:
+    print(f'Pick a number of questions from {min_questions} to {max_questions}')
+    print(f'For infinite mode enter {infinite_code}')
+
+    question_count = input('How many questions would you like to be in this quiz ')
+
+    try:
+      if int(question_count) == infinite_code:
+        print("==============================infinite mode=========================")
+        while True:
+          questions_asked = questions_asked + 1
+          print(f'======question {questions_asked}======')
+          question_data = generate_question(min_range, max_range)
+          user_answer = get_user_answer(question_data)
+          if user_answer == "stop" :
+            break
+          check_answer(question_data[0], user_answer)
+
+        print("==========================end of infinite mode======================")
+        history_display(questions_asked,question_count)  # calling history_display
+        return 
+      
+
+      elif int(question_count) >= min_questions and int(question_count) <= max_questions:
+        print('====================================================================')
+        for i in range(int(question_count)):
+          print(f'======question {i + 1}======')
+          question_data = generate_question(min_range, max_range)
+          user_answer = get_user_answer(question_data)
+          check_answer(question_data[0], user_answer)  
+
+        print('====================================================================')
+        questions_asked = int(question_count)
+        history_display(questions_asked,question_count)  # calling history_display    
+        break
+
+
+    except ValueError:
+      print('====================================================================')
+
 
 #######################################################
-def histery_print(): 
-  show_history = input('Do you want to see your quiz history? ( Yes/No ) ').lower().strip()
-  if show_history == "yes":
-    if len(user_input) == 0:
+#history display
+def history_display(questions_asked,question_count): 
+  while True:
+    view_history = input('Do you want to see your quiz history? ( Yes/No ) ').lower().strip()
+
+    if view_history == "yes" and len(user_answers) == 0:
       print("You have quit before answering any questions")
-    for i in range(len(user_input)):
-      print(f"==============================Question {i+1}=============================")
-      print (f"{questions[i]}")
-      if right_answer[i] == user_input[i]:
-        print('You got the answer right! ✅')
-      else:
-        print('You got the answer wrong. ❌')
-        print (f"Coreect answer was - {right_answer[i]}")
-      print (f"Your answer was - {user_input[i]}")
+      break
 
-    print("=====================================================================")     
+    elif view_history == "yes" and len(user_answers) > 0:
+      for i in range(len(user_answers)):
+        print(f"==============================Question {i+1}=============================")
+        print (f"{question_list[i]}")
+
+        if correct_answers[i] == user_answers[i]:
+          print('You got the answer right! ✅')
+
+        else:
+          print('You got the answer wrong. ❌')
+          print (f"Coreect answer was - {correct_answers[i]}")
+        print (f"Your answer was - {user_answers[i]}")
+      break
 
 
+    elif view_history == "no":
+      break
+
+  int(score)
+  int(questions_asked)
+  print("=====================================================================") 
+  if question_count == "999" and score > 0:
+    print(f'You got {score} out of {questions_asked-1} in infinite mode') 
+    score_percentage = round(score / (questions_asked-1) * 100)
+  elif question_count != "999":
+    print(f'You got {score} out of {questions_asked}')
+    score_percentage  = round(score / questions_asked * 100)
+  else:
+    print(f'You got {score} out of {questions_asked}')
+    print('Better luck next time')
+    score_percentage = 0
+
+  print(f'======={score_percentage}%======')
+
+  feedback(score_percentage)
 #######################################################
-#calling the functions 
-instructions()
-year = age_group()
-question_number(year)
+def feedback(score_percentage):
+  if 90 <= score_percentage <= 100:
+    print("Excellent work")
+    print("Keep this good work up")
+  elif 75 <= score_percentage <= 89:
+    print("Good job, you're doing well")
+    print("Keep this good work up")
+  elif 60 <= score_percentage <= 74:
+    print("Good effort")
+    print("Keep this good work up")
+  elif 40 <= score_percentage <= 59:
+    print("You need some practice")
+  elif 10 <= score_percentage <= 39:
+    print("Needs more practice")
+  else:
+    print("need lot of practice but don't worry you can do it")
+  print("=====================================================================") 
+#######################################################
+show_instructions()
+user_year_level = year_level()
+min_range, max_range = get_range_for_year_level(user_year_level)
+question_number(min_range, max_range)
+while True:
+  play_again = input('Do you want do the quiz again ').lower().strip()
+  if play_again == "yes":
+    question_list.clear()
+    correct_answers.clear()
+    user_answers.clear()
+    score = 0
+    show_instructions()
+    question_number(min_range, max_range)
+  elif play_again == "no":
+    print('Thank you for playing the quiz!')
+    break
+  else:
+    print('Please enter yes or no')
+
 

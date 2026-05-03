@@ -10,11 +10,19 @@ def Percentages ():
       print('make sure to round it up to 2.d.p')
       answar = round(Percentages / 100 * percentages_of)
       user_input = float(input(f'what is {Percentages}% of {percentages_of} '))
+<<<<<<< HEAD
+      if user_input == answer:
+        print("Great job! You got the answer right!")
+        break
+      elif user_input > 0 and user_input < 5001:
+        print(f"{wrong_answer} {answer}")
+=======
       if user_input == answar:
         print(right_answer)
         break
-      elif 0 < user_input < 5001:
-        print(f'{wrong_answer}{answar}!')
+      elif user_input > 0 and user_input < 5001:
+        print(f"{wrong_answer} {answar}")
+>>>>>>> f914bcb (ask for number of questions)
         break
     except:
       print("integer and float only")
@@ -37,17 +45,24 @@ def Power ():
       # get random power and the number
       rand_power = random.choice(power)
       rand_no = random.choice(Positive_no)
+<<<<<<< HEAD
+      r_answer =pow(rand_no,rand_no)
+      print(r_answer)
+      user_answer = input(f"Calculate: {rand_no}^{rand_power} ")
+      if r_answer == user_answer:
+        print("Great job! You got the answer right!")
+        break
+      elif user_answer != r_answer:
+        print(f'{wrong_answer} {r_answer}! ')
+=======
       r_answer = pow(rand_no,rand_power)
-      try:
-        user_answer = int(input(f"Calculate: {rand_no}^{rand_power} "))
-      except ValueError:
-        print("invalid")
-        continue
+      user_answer = int(input(f"Calculate: {rand_no}^{rand_power} "))
       if user_answer == r_answer:
         print(right_answer)
         break
       else:
-        print(f'{wrong_answer}{r_answer}!')
+        print(f'{wrong_answer} {r_answer}')
+>>>>>>> f914bcb (ask for number of questions)
         break
     except:
       print("invalid")

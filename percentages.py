@@ -1,21 +1,26 @@
+#day one 13/3/2026
 import random
-right_answer = "Great job the answer is right"
-wrong_answer = "nice try but the a answer was "
 
-def Percentages ():
+
+def percentage ():
   while True:
     try:
-      Percentages = random.randint(1, 99)
-      percentages_of = random.randint(300, 5000)
-      print('make sure to round it up to 2.d.p')
-      answar = round(Percentages / 100 * percentages_of)
-      user_input = float(input(f'what is {Percentages}% of {percentages_of} '))
-      if user_input == answar:
-        print(right_answer)
+      random_percentage = random.randint(1, 99)
+      number = random.randint(2500, 7000)
+      answer = round(random_percentage / 100 * number)
+      print(f" answer {answer}")
+      user_answer = float(input(f"find {random_percentage}% percentage of {number}? "))
+      if user_answer == answer:
+        print("The answer is right!")
         break
-      elif user_input > 0 and user_input < 5001:
-        print(f"{wrong_answer} {answar}")
+      elif user_answer > 0 and user_answer < 7001:
+        print(f"Nice try, The answer was {answer}")
         break
     except:
-      print("integer and float only")
-      print("")
+      print("invalid")
+      print("please ender Integer/Decimals")
+  
+print("moving on")  
+  
+  
+percentage()
